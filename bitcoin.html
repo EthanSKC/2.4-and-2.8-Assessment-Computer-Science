@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ethan Lin Bitcoin Page</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav>
+        <a href="main.html">Home</a>
+        <a href="bitcoin.html">Bitcoin</a>
+        <a href="ethereum.html">Ethereum</a>
+        <a href="solana.html">Solana</a>
+    </nav>
+    <img class="crypto-image" src="bitcoin.png" alt="Bitcoin logo">
+    <h1>Bitcoin</h1>
+    <p><!-- This is the Bitcoin description -->
+        Bitcoin is a digital currency created in 2008 by a person or group using
+        the name Satoshi Nakamoto. It was made to let people send money directly
+        to each other without needing a bank or government to control it.
+        Bitcoin uses blockchain technology to record transactions and there
+        will only ever be 21 million Bitcoin.
+    </p>
+    <div class="investment-container">
+
+        <h2>Investment</h2>
+
+        <label for="investment">Initial Investment:</label>
+        <input type="number" id="investment" placeholder="Enter amount">
+        <!-- Options in the dropdown menu -->
+        <label for="duration">Duration Invested:</label>
+        <select id="duration">
+            <option value="1week">1 Week</option>
+            <option value="1month">1 Month</option>
+            <option value="3month">3 Months</option>
+            <option value="6month">6 Months</option>
+            <option value="1year">1 Year</option>
+        </select>
+
+        <br><br>
+
+        <button id="calculate">Calculate</button>
+
+        <div id="result"></div>
+    </div>
+    <h2>Price History</h2>
+
+    <canvas id="priceChart"></canvas>
+
+    <br><br>
+
+    <a href="main.html">Home</a>
+    <footer>
+        <p>Made by Ethan Lin SKC</p>
+        <p>Information provided by <a href="https://www.coingecko.com/en/api" target="_blank">CoinGecko</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

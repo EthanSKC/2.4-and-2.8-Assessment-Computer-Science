@@ -1,0 +1,230 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #EFF2F1;
+    color: #364B91;
+    margin: 0;
+}
+
+
+h1 {
+    color: #364B91;
+}
+
+
+h2 {
+    color: #364B91;
+}
+
+
+p {
+    max-width: 700px;
+    margin: 20px auto;
+    line-height: 1.6;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(54, 75, 145, 0.12);
+    /* This is the circle that makes the paragraph look like its popping out*/
+}
+
+
+a {
+    color: white;
+    background-color: #364B91;
+    padding: 8px 15px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+
+a:hover {
+    background-color: #6B9AC4;
+    color: #364B91;
+}
+
+
+input,
+select {
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid #6B9AC4;
+    border-radius: 8px;
+    background-color: white;
+    color: #364B91;
+}
+
+
+label {
+    color: #364B91;
+}
+
+
+button {
+    padding: 10px 18px;
+    margin: 10px;
+    background-color: #364B91;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+button:hover {
+    background-color: #6B9AC4;
+    color: #364B91;
+}
+
+
+canvas {
+    max-width: 90%;
+    height: auto;
+    margin: 20px auto;
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+
+nav {
+    background-color: #364B91;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+
+nav a {
+    background-color: #364B91;
+    padding: 10px 18px;
+    margin: 5px;
+    display: inline-block;
+    border-radius: 8px;
+}
+
+
+nav a:hover {
+    background-color: #6B9AC4;
+    color: #364B91;
+}
+
+
+footer {
+    margin-top: 50px;
+    padding: 15px;
+    background-color: #364B91;
+    color: white;
+}
+
+
+footer p {
+    margin: 5px;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+
+footer a {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    color: white;
+    text-decoration: underline;
+}
+
+
+footer a:hover {
+    background-color: transparent;
+}
+
+
+.crypto-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin: 10px;
+}
+
+
+.crypto-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+
+.crypto-card {
+    background-color: white;
+    width: 220px;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #6B9AC4;
+    box-shadow: 0 4px 12px rgba(54, 75, 145, 0.15);
+}
+
+
+.crypto-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+
+.crypto-card h3 {
+    color: #364B91;
+}
+
+
+@media (max-width: 600px) {
+    .crypto-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .crypto-card {
+        width: 75%;
+    }
+}
+
+.investment-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: white;
+    border: 2px solid #6B9AC4;
+    border-radius: 15px;
+}
+
+.investment-container h2 {
+    margin-top: 0;
+}
+
+.investment-container label {
+    display: block;
+    margin-top: 15px;
+}
+
+.investment-container input,
+.investment-container select {
+    margin: 8px;
+}
+
+.investment-container button {
+    display: block;
+    margin: 20px auto;
+}
+
+#result {
+    margin-top: 25px;
+    padding: 25px;
+    background-color: #EFF2F1;
+    border-radius: 10px;
+    color: #364B91;
+    font-size: 20px;
+    line-height: 1.8;
+    min-height: 100px;
+}
