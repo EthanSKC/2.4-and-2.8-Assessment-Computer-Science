@@ -1,3 +1,4 @@
+const coin = document.body.dataset.coin; //Gets the cryptocurrency name from the HTML page so the same JavaScript can be used for Bitcoin, Ethereum and Solana
 const apitoken = "CG-ta6bRHmDqhUw2wPB3Ha4MsjC"; //Const means I am creating a variable called apitoken which will call back to my private apitoken which contains all the prices, grpahs, dates, etc from coingecko
 
 const investment = document.getElementById("investment");// Gets the investment number from the cryptocurrency page, which then sends it to coingecko, which then calculates the profit/loss based on the duration of investment
@@ -8,9 +9,9 @@ const result = document.getElementById("result");//This is the area linked to ea
 const canvas = document.getElementById("priceChart");//This represents the graph on each html page and draws a 2D graph showing the price going up or down between the allocated time.
 const graph = canvas.getContext("2d");//This is to tell coingecko that I would like a 2 dimensional graph
 
-calculate.addEventListener("click", calculateBitcoin); //This is so that when I click the calculate button, it actually sends the information and retrieves information from the coin gecko website. This function calculates how much they would have made or lost. The function coded is shown below.
+calculate.addEventListener("click", calculateInvestment); //This is so that when I click the calculate button, it actually sends the information and retrieves information from the coin gecko website. This function calculates how much they would have made or lost. The function coded is shown below.
 
-async function calculateBitcoin() {//Creates a function called calculatebitcoin which calculates bitcoin prices and profit/loss based on information given from the user.
+async function calculateInvestment() {//Creates a function called calculateInvestment which calculates cryptocurrency prices and profit/loss based on information given from the user.
 
     const money = Number(investment.value);
 
@@ -45,8 +46,8 @@ async function calculateBitcoin() {//Creates a function called calculatebitcoin 
     const startTime = Math.floor(startDate.getTime() / 1000);
     const endTime = Math.floor(today.getTime() / 1000);
 
-    const url = //Getting the bitcoin price from the URL coingecko gave me initially when signing up
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range" +
+    const url = //Getting the cryptocurrency price from the URL coingecko gave me initially when signing up
+        "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart/range" +
         "?vs_currency=usd" + //Default currency is USD 
         "&from=" + startTime +//Start date
         "&to=" + endTime +//End date
@@ -54,35 +55,52 @@ async function calculateBitcoin() {//Creates a function called calculatebitcoin 
 
     result.innerHTML = "Loading...";//Loading text as the data given from coin gecko is not instant
 
-    const response = await fetch(url);//Gets the information from the internet
-    const data = await response.json();//Waits for the information to come back
+    try {
 
-    const prices = data.prices;//Analyses the prices
+        const response = await fetch(url);//Gets the information from the internet
 
-    const startingPrice = prices[0][1];//This variable means that the coin gecko needs to give the prices. 0 means first price, and 1 means price after the date
-    const currentPrice = prices[prices.length - 1][1];//Price length and the 1 means to give me the latest bitcoin price that coin gecko has
+        if (!response.ok) {
+            throw new Error("API request failed, please try again"); //Error message for if the fetch request even went through. 
+        }
 
-    const bitcoinBought = money / startingPrice;//Calculates the bitcoin that the user would have got. An example being if bitcoin was worth 50,000 and the user invested 25,000, it would be 0.25 bitcoin
+        const data = await response.json();//Waits for the information to come back
 
-    const finalValue = bitcoinBought * currentPrice;//Calculates value of bitcoin that the user would of had, and multiplies it to the current price and that would be the money they would have now
+        if (!data.prices || data.prices.length === 0) {
+            throw new Error("No price data available, please try again"); //Error message for when the fetch message went through but no data came back.
+        }
 
-    const profit = finalValue - money;//Initial value - the final value which gives profit/loss amount
+        const prices = data.prices;//Analyses the prices
+        const startingPrice = prices[0][1];//This variable means that the coin gecko needs to give the prices. 0 means first price, and 1 means price after the date
+        const currentPrice = prices[prices.length - 1][1];//Price length and the 1 means to give me the latest cryptocurrency price that coin gecko has
 
-    const percentage = (profit / money) * 100;// Multiply the profit over total money invested and then multiply it by 100 to get the percentage amount
-    //The Code below shows all the money and number amounts that the user would need, and displays it under price history on the html pages
-    result.innerHTML = `
+        const bitcoinBought = money / startingPrice;//Calculates the cryptocurrency that the user would have got. An example being if cryptocurrency was worth 50,000 and the user invested 25,000, it would be 0.5 cryptocurrency
+
+        const finalValue = bitcoinBought * currentPrice;//Calculates value of the cryptocurrency that the user would of had, and multiplies it to the current price and that would be the money they would have now
+
+        const profit = finalValue - money;//Initial value - the final value which gives profit/loss amount
+
+        const percentage = (profit / money) * 100;// Multiply the profit over total money invested and then multiply it by 100 to get the percentage amount
+
+        const coinName = coin.charAt(0).toUpperCase() + coin.slice(1);//Changes the cryptocurrency name so that it can be displayed correctly in the results.
+
+        //The Code below shows all the money and number amounts that the user would need, and displays it under price history on the html pages
+        result.innerHTML = `
         <h2>Results</h2>
-        <p>Bitcoin Starting Price: $${startingPrice.toFixed(2)}</p>
-        <p>Bitcoin Current Price: $${currentPrice.toFixed(2)}</p>
-        <p>Bitcoin Bought: ${bitcoinBought.toFixed(6)} BTC</p>
+        <p>${coinName} Starting Price: $${startingPrice.toFixed(2)}</p>
+        <p>${coinName} Current Price: $${currentPrice.toFixed(2)}</p>
+        <p>${coinName} Bought: ${bitcoinBought.toFixed(6)}</p>
         <p>Final Value: $${finalValue.toFixed(2)}</p>
         <p>Profit/Loss: $${profit.toFixed(2)}</p>
         <p>Return: ${percentage.toFixed(2)}%</p>
     `;
 
-    drawGraph(prices); //Drawing the 2D graph
-}
+        drawGraph(prices); //Drawing the 2D graph
 
+    } catch (error) {
+        result.innerHTML = "Unable to retrieve price data. Please try again later.";
+        //Shows an error message if the API cannot retrieve the price data.
+    }
+}
 
 function drawGraph(prices) {
 
